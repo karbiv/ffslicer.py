@@ -128,11 +128,14 @@ if __name__ == "__main__":
         cnt += 1
 
     if not kargs.multiprocess:
-        print("Starting...")
-        for task in tasks:
-            print("\nOutput path '{}':".format(task[-1]))
-            subprocess.run(task)
-        print()
+        try:
+            print("Starting...")
+            for task in tasks:
+                print("\nOutput path '{}':".format(task[-1]))
+                subprocess.run(task, stdin=subprocess.PIPE) # PIPE is important, doesn't break terminal
+            print()
+        except KeyboardInterrupt:
+            print("Keyboard interrupt.")
     else:
         from threading  import Thread
         from queue import Queue, Empty
