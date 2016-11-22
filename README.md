@@ -18,19 +18,17 @@ Input filename appended to the ffslices container folder name.
 
 Each option in the arguments file (named args.txt in this case) must on a separate line:
 
-*-i
-../test.mp4
---slices
-00:00:03.325 8.305
-8.317 15.34 28 35.8
--preset
-superfast
--qp
-4
--x264opts
-keyint=24:min-keyint=24
--pix_fmt
-yuv420p*
+*-i  
+../test.mp4  
+--slices  
+00:00:03.325 8.305  
+8.317 15.34 28 35.8  
+-preset  
+superfast  
+-qp  
+4  
+-pix_fmt  
+yuv420p*  
 
 Only **--slices** option can have arguments spread on several lines.
 All options can reside in an arguments file, so a call could look like:
