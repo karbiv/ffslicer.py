@@ -11,9 +11,9 @@ Example:
 
 >python3 ./ffslicer.py -i input.mp4 @args.txt ~/destdir/output.mkv
 
-Takes arguments for args.txt file.
-Will create a contaner folder named "ffslices_input.mp4" at "~/destdir/"(must already exist).
-Input filename appended to the ffslices container folder name.
+Takes arguments for args.txt file.  
+Will create a contaner folder named "ffslices_input.mp4" at "~/destdir/"(must already exist).  
+Input filename appended to the ffslices container folder name.  
 ~/destdir/ffslices\_input.mp4 will contain a video file for each slice in arguments.
 
 Each option in the arguments file (named args.txt in this case) must on a separate line:
