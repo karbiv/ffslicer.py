@@ -30,7 +30,7 @@ superfast
 -pix_fmt  
 yuv420p*  
 
-Only **--slices** option can have arguments spread on several lines.
+Only **--slices** option can have arguments spread on several lines.  
 All options can reside in an arguments file, so a call could look like:
 >python3 ./ffslicer.py @args.txt
 
