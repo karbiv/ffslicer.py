@@ -9,6 +9,7 @@ from datetime import timedelta
 import subprocess
 import argparse
 from pathlib import PurePath
+import string
 
 help_epilog = """It may make sense to keep the list of arguments in a file rather than
 typing it out at the command line.
@@ -78,6 +79,15 @@ def add_arguments(parser):
     parser.add_argument('-i', dest="input", help=argparse.SUPPRESS)
 
 
+def slicenames_prefixes():
+    '''Prefixes for video slices names in sort order for builtin sorted() function'''
+    prefixes = ''.join([string.digits,
+                        string.ascii_uppercase,
+                        string.ascii_lowercase])
+    for l in prefixes:
+        yield l + '_'
+    
+
 def get_slice_name(prefix, start, to, suffix):
     start = start.replace(':', '-')
     to = to.replace(':', '-')
@@ -114,18 +124,17 @@ if __name__ == "__main__":
 
     args = args[:-1]
     tasks = []
-    cnt = 1
+    prefix_gen = slicenames_prefixes()
     for start, to in pairs:
         dstart = delta(start)
         duration = delta(to) - dstart
         slice_name = str(destdir.joinpath(
             container,
-            get_slice_name(str(cnt) + ') ', start, to, output_path.suffix)))
+            get_slice_name(next(prefix_gen), start, to, output_path.suffix)))
 
         tasks.append(['ffmpeg', '-ss', format_delta(dstart), '-i', kargs.input, '-hide_banner'] + \
                      ['-t', format_delta(duration), '-loglevel', 'error', '-stats'] + args + \
                      ['-y', slice_name])
-        cnt += 1
 
     if not kargs.multiprocess:
         try:
